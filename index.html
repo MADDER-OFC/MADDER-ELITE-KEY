@@ -3,186 +3,272 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MADDER OFC - GET KEY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MADDER OFC</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;display:flex;align-items:center;
-  justify-content:center;font-family:Arial,sans-serif;color:white;
-  background:linear-gradient(#0009,#000d),
-  url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=85')
-  center/cover fixed;
+* {
+  box-sizing: border-box;
 }
-.card{
-  width:90%;max-width:380px;padding:30px 23px;text-align:center;
-  background:#101014eF;border:1px solid #d9aa36;
-  border-radius:20px;box-shadow:0 0 28px #d9aa3630;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background:
+    linear-gradient(#0009, #000c),
+    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80")
+    center/cover fixed;
+  color: white;
+  font-family: Arial, sans-serif;
 }
-.logo{font-size:30px;font-weight:900;color:#ffd45c;letter-spacing:2px}
-.sub{font-size:12px;letter-spacing:3px;color:#bbb;margin-top:8px}
-.expire{margin:22px 0;padding:12px;border:1px solid #57451f;
-border-radius:8px;color:#ffd45c;font-size:13px}
-button{
-  width:100%;padding:15px;margin-top:13px;border:0;border-radius:9px;
-  font-size:15px;font-weight:bold;cursor:pointer
+
+.page {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  padding: 30px 22px;
+  text-align: center;
+  background: #15151bea;
+  border: 1px solid #d9aa36;
+  border-radius: 14px;
+  box-shadow: 0 0 20px #d9aa3630;
 }
-.gold{background:linear-gradient(120deg,#fff0a0,#e1a21a);color:#111}
-.dark{background:#202027;color:#ffd45c;border:1px solid #80621c}
-#timer{font-size:13px;color:#ddd;margin-top:18px}
-#warning{display:none;color:#ff5151;font-weight:bold;margin-top:18px}
-#claimArea,#keyArea{display:none;margin-top:15px}
-.keytext{font-size:20px;letter-spacing:2px;color:#ffd45c;
-padding:16px 4px;overflow-wrap:anywhere}
-.footer{font-size:11px;color:#888;margin-top:24px}
+
+h2 {
+  color: #ffd45c;
+  margin: 10px 0 20px;
+}
+
+.speaker {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.action {
+  width: 100%;
+  padding: 15px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 7px;
+  background: #ffd45c;
+  color: #111;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#second {
+  display: none;
+}
+
+#warning {
+  display: none;
+  margin-top: 15px;
+  color: #ff4c4c;
+  font-weight: bold;
+}
+
+#status, #copyStatus {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+#key {
+  color: #ffd45c;
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
 </style>
 </head>
+
 <body>
-<div class="card">
-  <div class="logo">MADDER OFC</div>
-  <div class="sub">OFFICIAL KEY PORTAL</div>
 
-  <div class="expire">
-    EXPIRE TIME: 8/10/2026
-  </div>
-
-  <button class="gold" id="getBtn" onclick="startKey()">GET KEY</button>
-  <div id="timer">Click GET KEY to start</div>
-  <div id="warning">⚠ BYPASS DETECTED ⚠</div>
-
-  <div id="claimArea">
-    <button class="gold" onclick="claimKey()">CLAIM KEY</button>
-  </div>
-
-  <div id="keyArea">
-    <div class="keytext" id="key">MTECEADLYKSYYNPA</div>
-    <button class="gold" onclick="copyKey()">COPY KEY</button>
-    <div id="copyStatus"></div>
-  </div>
-
-  <div style="margin-top:22px;color:#ffd45c">♫ BACKGROUND MUSIC</div>
-  <button class="dark" onclick="toggleMusic()">PLAY / PAUSE MUSIC</button>
-
-  <div class="footer">MADDER OFC © 2026</div>
-</div>
-
-<audio id="bgMusic" loop>
+<audio id="song" loop preload="auto">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-<audio id="errorMusic">
-  <source src="bypass.mp3" type="audio/mpeg">
-</audio>
-<audio id="claimMusic">
-  <source src="claim.mp3" type="audio/mpeg">
-</audio>
+
+<!-- GET KEY PAGE -->
+<div class="page" id="first">
+
+  <button class="speaker" id="speaker"
+    onclick="toggleMusic()" aria-label="Toggle music">🔇</button>
+
+  <h2>MADDER OFC</h2>
+
+  <button class="action" onclick="getKey()">GET KEY</button>
+
+  <div id="status"></div>
+  <div id="warning">⚠ BYPASS DETECTED</div>
+
+</div>
+
+<!-- KEY PAGE -->
+<div class="page" id="second">
+
+  <button class="speaker" id="speaker2"
+    onclick="toggleMusic()" aria-label="Toggle music">🔇</button>
+
+  <h2>YOUR KEY</h2>
+
+  <div id="key">MTECEADLYKSYYNPA</div>
+
+  <button class="action" onclick="copyKey()">COPY KEY</button>
+
+  <div id="copyStatus"></div>
+
+</div>
 
 <script>
-let startedAt = null;
+const song = document.getElementById("song");
+
+let musicOn = false;
+let startTime = null;
+let failed = false;
+let leftPage = false;
+let keyShown = false;
 let timer = null;
-let returnedEarly = false;
-let claimed = false;
 
-const bg = document.getElementById('bgMusic');
-const errorAudio = document.getElementById('errorMusic');
-const claimAudio = document.getElementById('claimMusic');
+async function playMusic() {
+  try {
+    song.currentTime = 0;
+    await song.play();
+    musicOn = true;
+  } catch (error) {
+    musicOn = false;
+  }
 
-function startKey(){
-  startedAt = Date.now();
-  returnedEarly = false;
-  claimed = false;
-
-  clearInterval(timer);
-  document.getElementById('warning').style.display='none';
-  document.getElementById('claimArea').style.display='none';
-  document.getElementById('keyArea').style.display='none';
-
-  // Open the key destination in a new tab.
-  window.open('https://vplink.in/XTs1r','_blank');
-
-  document.getElementById('timer').textContent =
-    'Please wait 36 seconds...';
-
-  timer = setInterval(()=>{
-    const elapsed = Math.floor((Date.now()-startedAt)/1000);
-    const remaining = 36-elapsed;
-
-    if(remaining > 0){
-      document.getElementById('timer').textContent =
-        'Please wait: '+remaining+' seconds';
-    } else {
-      clearInterval(timer);
-      if(!returnedEarly){
-        document.getElementById('timer').textContent =
-          'You can now claim your key';
-        document.getElementById('claimArea').style.display='block';
-      }
-    }
-  },250);
+  updateSpeaker();
 }
 
-function checkReturn(){
-  if(startedAt===null || claimed || returnedEarly) return;
-  const elapsed=(Date.now()-startedAt)/1000;
+function updateSpeaker() {
+  const icon = musicOn ? "🔊" : "🔇";
 
-  if(elapsed<36){
-    returnedEarly=true;
-    clearInterval(timer);
-    document.getElementById('claimArea').style.display='none';
-    document.getElementById('warning').style.display='block';
-    document.getElementById('timer').textContent='Early return detected';
+  document.getElementById("speaker").textContent = icon;
+  document.getElementById("speaker2").textContent = icon;
+}
 
-    errorAudio.currentTime=0;
-    errorAudio.play().catch(()=>{});
+async function toggleMusic() {
+  if (musicOn) {
+    song.pause();
+    musicOn = false;
+    updateSpeaker();
   } else {
-    clearInterval(timer);
-    document.getElementById('timer').textContent='You can now claim your key';
-    document.getElementById('claimArea').style.display='block';
+    try {
+      await song.play();
+      musicOn = true;
+      updateSpeaker();
+    } catch (error) {
+      alert("music.mp3 ko HTML file ke saath same folder mein rakho.");
+    }
   }
 }
 
-document.addEventListener('visibilitychange',()=>{
-  if(!document.hidden) checkReturn();
-});
-window.addEventListener('focus',checkReturn);
+function getKey() {
+  clearInterval(timer);
 
-function claimKey(){
-  if(startedAt===null || returnedEarly ||
-     (Date.now()-startedAt)/1000<36){
+  startTime = Date.now();
+  failed = false;
+  leftPage = false;
+  keyShown = false;
+
+  document.getElementById("warning").style.display = "none";
+  document.getElementById("status").textContent = "";
+
+  const opened = window.open("https://vplink.in/XTs1r", "_blank");
+
+  if (!opened) {
+    document.getElementById("status").textContent =
+      "Pop-ups allow karo, phir GET KEY dabao.";
+  }
+
+  timer = setInterval(() => {
+    if (startTime !== null && !failed && !keyShown) {
+      const elapsed = (Date.now() - startTime) / 1000;
+
+      if (elapsed >= 36 && !leftPage) {
+        // User ko 36 seconds tak link page par rehna hoga.
+        clearInterval(timer);
+      }
+    }
+  }, 500);
+}
+
+function detectBypass() {
+  if (startTime === null || failed || keyShown || !leftPage) {
     return;
   }
 
-  claimed=true;
-  document.getElementById('claimArea').style.display='none';
-  document.getElementById('keyArea').style.display='block';
-  document.getElementById('timer').textContent='KEY CLAIMED';
+  const elapsed = (Date.now() - startTime) / 1000;
 
-  claimAudio.currentTime=0;
-  claimAudio.play().catch(()=>{});
-}
+  if (elapsed < 36) {
+    failed = true;
+    clearInterval(timer);
 
-async function copyKey(){
-  const key=document.getElementById('key').textContent;
-  try{
-    await navigator.clipboard.writeText(key);
-    document.getElementById('copyStatus').textContent='✓ KEY COPIED!';
-  }catch(e){
-    const input=document.createElement('textarea');
-    input.value=key;
-    document.body.appendChild(input);
-    input.select();
-    const ok=document.execCommand('copy');
-    input.remove();
-    document.getElementById('copyStatus').textContent=
-      ok?'✓ KEY COPIED!':'Please copy the key manually.';
+    document.getElementById("warning").style.display = "block";
+    document.getElementById("status").textContent = "";
+
+    // Bypass detect hote hi music play karne ki koshish.
+    playMusic();
+
+  } else {
+    keyShown = true;
+    clearInterval(timer);
+
+    document.getElementById("first").style.display = "none";
+    document.getElementById("second").style.display = "block";
   }
 }
 
-function toggleMusic(){
-  if(bg.paused) bg.play().catch(()=>alert(
-    'Upload music.mp3 in the same folder as index.html'
-  ));
-  else bg.pause();
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    if (startTime !== null && !failed && !keyShown) {
+      leftPage = true;
+    }
+  } else {
+    detectBypass();
+  }
+});
+
+window.addEventListener("focus", () => {
+  detectBypass();
+});
+
+async function copyKey() {
+  const key = document.getElementById("key").textContent.trim();
+  const status = document.getElementById("copyStatus");
+
+  try {
+    await navigator.clipboard.writeText(key);
+    status.textContent = "✓ COPIED!";
+  } catch (error) {
+    const field = document.createElement("textarea");
+    field.value = key;
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+
+    document.body.appendChild(field);
+    field.select();
+
+    const copied = document.execCommand("copy");
+    field.remove();
+
+    status.textContent = copied
+      ? "✓ COPIED!"
+      : "Copy manually: " + key;
+  }
 }
 </script>
+
 </body>
 </html>
